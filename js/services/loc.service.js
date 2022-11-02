@@ -1,10 +1,10 @@
-import { storageService } from './services/storage.service.js';
-import { utilService } from './services/util.service.js';
+import { storageService } from './storage.service.js';
+import { utilService } from './util.service.js';
 
 export const locService = {
     getLocs,
     createLoc,
-};
+}
 
 const STORAGE_KEY = 'locsDB';
 var gLocsCache = storageService.load(STORAGE_KEY);
