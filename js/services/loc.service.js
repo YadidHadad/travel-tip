@@ -5,6 +5,7 @@ export const locService = {
   getLocs,
 };
 
+<<<<<<< HEAD
 const STORAGE_KEY = 'locsDB';
 var gLocsCache = loadFromStorage(STORAGE_KEY);
 const locs ; 
@@ -13,6 +14,12 @@ const defaultLocs = [
   { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
   { name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
 ];
+=======
+const locs = [
+    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
+    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
+]
+>>>>>>> 29d7f0ac42850658cf202e09c19e40773f9b4c87
 
 function getLocs() {
     if (gLocsCache) return Promise.resolve(gLocsCache);

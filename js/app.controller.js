@@ -7,12 +7,17 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 
+// let gInfoWindow
+
 function onInit() {
+    // debugger
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
+            onAddMarker()
+            console.log('Map is ready2')
         })
-        .catch(() => console.log('Error: cannot init map'))
+        .catch(() => console.error('Error: cannot init map'))
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -47,7 +52,9 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
+
 function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
+
