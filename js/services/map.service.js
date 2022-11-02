@@ -1,4 +1,5 @@
 import { storageService } from './services/storage.service.js';
+import { locService } from './services/loc.service.js';
 
 export const mapService = {
   initMap,
