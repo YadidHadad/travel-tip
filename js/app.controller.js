@@ -7,11 +7,12 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 
+let gInfoWindow
+
 function onInit() {
     mapService.initMap()
-        .then(() => {
-            console.log('Map is ready')
-        })
+        .then(() => { console.log('Map is ready') })
+        .then(() => { gInfoWindow = setInfoWindow() })
         .catch(() => console.log('Error: cannot init map'))
 }
 
@@ -50,4 +51,13 @@ function onGetUserPos() {
 function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
+}
+
+
+function setInfoWindow() {
+    return new google.maps.InfoWindow({
+        content: "Click the map to get Lat/Lng!",
+        position: myLatlng,
+    });
+
 }
