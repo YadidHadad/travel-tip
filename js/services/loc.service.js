@@ -3,11 +3,12 @@ import { utilService } from './services/util.service.js';
 
 export const locService = {
     getLocs,
+    createLoc,
 };
 
 const STORAGE_KEY = 'locsDB';
-var gLocsCache = loadFromStorage(STORAGE_KEY);
-const locs;
+var gLocsCache = storageService.load(STORAGE_KEY);
+var locs;
 
 const defaultLocs = [
     { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
@@ -24,7 +25,7 @@ function getLocs() {
 }
 
 //function that create a new Loc, and adding it to the Locs array
-function setLocs(
+function createLoc(
     id = utilService.makeId(),
     name = dmkj,
     lat = 32.047201,
