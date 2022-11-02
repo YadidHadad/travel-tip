@@ -3,21 +3,25 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
+    addEventListener,
 };
 
 // Var that is used throughout this Module (not global)
 var gMap;
+var gInfoWindow
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap');
-    return _connectGoogleApi().then(() => {
-        console.log('google available');
-        gMap = new google.maps.Map(document.querySelector('#map'), {
-            center: { lat, lng },
-            zoom: 15,
-        });
-        console.log('Map!', gMap);
-    });
+    console.log('InitMap')
+    return _connectGoogleApi()
+        .then(() => {
+            console.log('google available')
+            gMap = new google.maps.Map(document.querySelector('#map'), {
+                center: { lat, lng },
+                zoom: 15,
+            })
+            addEventListener()
+            console.log('Map!', gMap);
+        })
 }
 
 function addMarker(loc) {
@@ -54,7 +58,34 @@ function _connectGoogleApi() {
 function addEventListener() {
     console.log('click');
     gMap.addListener('click', (mapsMouseEvent) => {
+
+        // const infoContent = getInfoContent()
         // console.log(mapsMouseEvent)
-        console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+        if (gInfoWindow) {
+
+            gInfoWindow.close();
+        }
+        gInfoWindow = new google.maps.InfoWindow({
+            position: mapsMouseEvent.latLng,
+        });
+        gInfoWindow.setContent(
+            getInfoContent()
+            // JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+        );
+        gInfoWindow.open(gMap);
     });
 }
+
+function getInfoContent() {
+    return `
+    <div>
+    <h2>sfasfafsa</h2>
+    <p>fsfass</p>
+</div>
+    
+    
+    
+    `
+}
+
+

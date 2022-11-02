@@ -8,15 +8,19 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.getPosition = getPosition
 
+var gUserCurrPos
+
 // let gInfoWindow
 function onInit() {
-    mapService.initMap()
+    onGetUserPos()
         .then(() => {
-            onAddMarker()
+            mapService.initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng)
+                .then(() => { onAddMarker(locService.loadCurrPos()) })
+            // .then(() => locService.addEventListener())
         })
         .catch(() => console.error('Error: cannot init map'))
 
-    renderLocationTable()
+    // renderLocationTable()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -27,9 +31,9 @@ function getPosition() {
     });
 }
 
-function onAddMarker() {
+function onAddMarker(pos) {
     console.log('Adding a marker');
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+    mapService.addMarker(pos);
 }
 
 function onGetLocs() {
@@ -40,21 +44,19 @@ function onGetLocs() {
 }
 
 function onGetUserPos() {
-    getPosition()
-        .then((pos) => {
-            console.log('User position is:', pos.coords);
-            document.querySelector(
-                '.user-pos'
-            ).innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`;
-        })
-        .catch((err) => {
-            console.log('err!!!', err);
-        });
+    return new Promise((resolve, reject) => {
+        resolve(getPosition()
+            .then((pos) => { return { lat: pos.coords.latitude, lng: pos.coords.longitude } })
+            .then(userPos => { locService.saveCurrLoc(userPos); return userPos })
+        )
+    })
 }
 
-function onPanTo() {
+function onPanTo(pos) {
+    console.log(`pos:`, pos)
     console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+    // mapService.panTo(35.6895, 139.6917);
+    mapService.panTo(pos.lat, pos.lng);
 }
 
 function renderLocationTable() {
