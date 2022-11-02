@@ -17,3 +17,7 @@ function createDate() {
   const date = new Date();
   return date.toLocaleDateString();
 }
+
+function kelvinToCel(degrees) {
+  return (degrees - 273.15).toFixed(2);
+}
