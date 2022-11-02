@@ -4,11 +4,16 @@ import { utilService } from './util.service.js';
 export const locService = {
     getLocs,
     createLoc,
+    saveCurrLoc,
+    loadCurrPos: getCurrPos,
 }
 
-const STORAGE_KEY = 'locsDB';
-var gLocsCache = storageService.load(STORAGE_KEY);
-var locs;
+const LOCS_STORAGE_KEY = 'locsDB';
+const USER_LOC_STORAGE_KEY = 'userlocDB';
+
+
+var gLocs
+var gUserCurrPos
 
 const defaultLocs = [
     { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
@@ -35,4 +40,14 @@ function createLoc(
     // var locs = [{ id: 1, name: home, lat: 11.22, lng: 22.11, createdAt: 1519211810362 }]
     if (lat && lng) locs = [{ id, name, lat, lng, createdAt }];
     return locs;
+}
+
+
+function saveCurrLoc(pos) {
+    storageService.save(USER_LOC_STORAGE_KEY, pos)
+}
+
+function getCurrPos() {
+    return storageService.load(USER_LOC_STORAGE_KEY)
+
 }
