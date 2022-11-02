@@ -9,6 +9,8 @@ window.onGetUserPos = onGetUserPos;
 
 // let gInfoWindow
 function onInit() {
+  console.log('init');
+  // debugger
   mapService
     .initMap()
     .then(() => {
