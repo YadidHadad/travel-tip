@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url(/fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: MontserratThin;
+    src: url(/fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: MontserratSemiBold;
+    src: url(/fonts/MontserratSemiBold/Montserrat-SemiBold.ttf);
+}
+
+body {
+    /* font-family: Helvetica, sans-serif; */
+    background-color: rgb(231, 111, 55);
+    padding: 10px 20px;
+    margin: auto;
+    font-family: Montserrat, sans-serif;
+}
+
+/* helpers */
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+
+/* ## ELEMENTS ## */
+
+/* header */
+header {
+    width: 90%;
+    height: 250px;
+}
+
+.header-a {
+    justify-items: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.4rem;
+    font-family: MontserratSemiBold;
+}
+.header-a div {
+    display: flex;
+    justify-items: center;
+  
+}
+input {
+    display: flex;
+    align-self: flex-end;
+    height: 2.2rem;
+    color: white;
+    background-color: lightgrey;
+}
+
+::-webkit-input-placeholder {
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    font-family: MontserratThin;
+}
+
+.btn {
+    background: darkgray;
+    color: white;
+    font-size: 1rem;
+    font-family: MontserratThin;
+}
+.btn-submit {
+    height: 2.2rem;
+    width: 5em;
+}
+
+.btn-user-pos {
+    width: 8em;
+    margin-inline-start: 5px;
+}
+
+.header-b {
+    align-items: baseline;
+}
+
+h2 {
+    font-family: MontserratSemiBold; 
+}
+
+h2 span {
+    font-family: Montserrat, sans-serif;
+}
+
+.btn-copy-locs {
+    height: 3em;
+    align-items: baseline;
+}
+
+/* main */
+main {
+    width: 90%;
+    height: 400px;
+    text-align: center;
+}
+
+.weather-locations-section {
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 45%;
+}
+
+.weather-container {
+    height: 210px;
+    margin-block-end: 10px;
+    background-color: white;
+}
+
+.location-table {
+    height: 180px;
+    background-color: rgb(38, 111, 213);
+}
+.map-container {
+    width: 55%;
+    margin-inline-start: 20px;
+}

@@ -6,14 +6,6 @@ function onGetUserPos() {
   });
 }
 
-// add to loc.service
-function getPosition() {
-  console.log('Getting Pos');
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-}
-
 // on copy location btn + add to controller
 function onCopyLocation() {
   locService.getPosition().then((pos) => {
