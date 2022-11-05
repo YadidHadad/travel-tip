@@ -5,14 +5,17 @@ export const mapService = {
     addEventListener,
     codeAddress,
     getCurrLoc,
-    closeInfoWindow,
+    removeMarker,
+    reverseCodeAddress,
+    getMap,
+    saveCurrLoc,
 }
 
 // Var that is used throughout this Module (not global)
 var gMap
 var gGeocoder
-var gInfoWindow
 var gCurrLoc
+var gMarkers = []
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
@@ -20,22 +23,44 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         .then(() => {
             console.log('google available')
             gGeocoder = new google.maps.Geocoder()
+            console.log(`gGeocoder:`, gGeocoder)
             gMap = new google.maps.Map(document.querySelector('#map'), {
                 center: { lat, lng },
                 zoom: 15,
             })
-            addEventListener()
             console.log('Map!', gMap);
+
+            return gMap
         })
 }
 
-function addMarker(pos) {
+function getMap() {
+    return gMap
+}
+
+function getCurrLoc() {
+    return gCurrLoc
+}
+
+function addMarker(pos, name) {
     var marker = new google.maps.Marker({
         position: pos,
         map: gMap,
-        title: 'Hello World!',
+        title: name,
     });
+
+    gMarkers.push(marker)
+    console.log(`gMarkers:`, gMarkers)
     return marker;
+}
+function removeMarker(name) {
+    console.log(`name:`, name)
+    const markerIdx = gMarkers.findIndex(marker => marker.title === name)
+    if (markerIdx > -1) gMarkers[markerIdx].setMap(null);
+
+    gMarkers.splice(markerIdx, 1)
+    console.log(gMarkers)
+
 }
 
 function panTo(lat, lng) {
@@ -50,7 +75,7 @@ function _connectGoogleApi() {
 
     var elGoogleApi = document.createElement('script');
 
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&language=en`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
@@ -60,48 +85,8 @@ function _connectGoogleApi() {
     });
 }
 
-function addEventListener() {
-    console.log('click');
-    gMap.addListener('click', onClickMap);
-}
-
-function onClickMap(mapsMouseEvent) {
-    const { lat, lng } = mapsMouseEvent.latLng.toJSON()
-    reverseCodeAddress(lat, lng)
-        .then(results => {
-            console.log(`results:`, results)
-            if (gInfoWindow) {
-                gInfoWindow.close()
-            }
-            gInfoWindow = new google.maps.InfoWindow({
-                position: mapsMouseEvent.latLng,
-
-            })
-            gInfoWindow.setContent(
-                setInfoContent(results.results[0].formatted_address)
-            )
-            gInfoWindow.open(gMap)
-
-            gCurrLoc = { coords: { lat, lng }, address: results.results[0].formatted_address }
-            console.log(gCurrLoc)
 
 
-        })
-}
-
-function closeInfoWindow() {
-    gInfoWindow.close()
-}
-function setInfoContent(address = 'address') {
-    return `
-        <div div class= "info-window" >
-            <h2>Your next stop is:</h2>
-            <p>${address}</p>
-            <input type="text" class="loc-name" placeholder="Name this place!"/>
-            <button onclick="onSaveLoc(event)">save</button>
-        </div >
-        `
-}
 
 function codeAddress() {
     var address = document.getElementById('address').value;
@@ -121,8 +106,6 @@ function codeAddress() {
 function reverseCodeAddress(lat, lng) {
     var latlng = new google.maps.LatLng(lat, lng)
     // This is making the Geocode request
-    console.log(`latlng:`, latlng)
-
     const address = gGeocoder.geocode({ 'latLng': latlng }, (results, status) => {
         var address
 
@@ -139,6 +122,8 @@ function reverseCodeAddress(lat, lng) {
     return address
 }
 
-function getCurrLoc() {
-    return gCurrLoc
+function saveCurrLoc(obj) {
+
+    gCurrLoc = obj
+
 }

@@ -20,9 +20,10 @@
 body {
     /* font-family: Helvetica, sans-serif; */
     background-color: rgb(231, 111, 55);
-    padding: 10px 20px;
+    padding: 20px;
     margin: auto;
     font-family: Montserrat, sans-serif;
+    height: fit-content;
 }
 
 h1,
@@ -31,7 +32,7 @@ h3,
 h4,
 h5,
 h5 {
-    /* margin: 0; */
+    margin: 0;
     padding-inline: 1rem;
 }
 
@@ -42,6 +43,10 @@ h5 {
 
 .justify-center {
     justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
 }
 
 .align-center {
@@ -159,9 +164,14 @@ main {
     background-color: white;
 }
 
-.location-table {
-    /* height: 180px; */
+.location-table>div {
     background-color: rgb(38, 111, 213);
+    margin-block-end: 1rem;
+}
+
+.location-table div {
+    /* height: 180px; */
+    padding: 5px;
 }
 
 .map-container {
@@ -185,7 +195,7 @@ main {
 .gm-style-iw-c,
 .gm-style-iw-d {
     overflow: hidden !important;
-    padding-left: 1rem;
+    padding-right: 1rem;
     padding-bottom: 1rem;
 
 }

@@ -1,10 +1,11 @@
 import { locService } from './services/loc.service.js';
 import { mapService } from './services/map.service.js';
-// import { weatherService } from './services/weather.service.js';
+import { weatherService } from './services/weather.service.js';
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
+window.onGoToLoc = onGoToLoc
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.getPosition = getPosition
@@ -13,38 +14,85 @@ window.onSaveLoc = onSaveLoc
 window.onMyLoc = onMyLoc
 window.onCopyLoc = onCopyLoc
 window.getQueryParams = getQueryParams
+window.onDeleteLoc = onDeleteLoc
+window.renderChosenLocAddress = renderChosenLocAddress
+window.addEventListener = addEventListener
 
 var gUserCurrPos;
+var gInfoWindow
+
 
 // let gInfoWindow
 function onInit() {
     onGetUserPos()
         .then(() => {
-            mapService.initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng)
-                .then(() => { onAddMarker(locService.loadCurrPos()) })
+            mapService
+                .initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng)
+                .then(map => { addEventListener(map) })
+                .then(() => { onAddMarker(locService.loadCurrPos(), 'You are Here!') })
+                .then(() => renderLocationTable())
+                .then(() => renderMarkers())
                 .catch(() => console.error('Error: cannot init map'))
         })
         .catch(() => console.error('Error: cannot get user position'))
 
-    renderLocationTable()
+
+}
+function addEventListener(map) {
+    map.addListener('click', onAddLoc);
 }
 
+function onAddLoc(mapsMouseEvent) {
+    const { lat, lng } = mapsMouseEvent.latLng.toJSON()
+    console.log(lat, lng)
+    onGetWaether(lat, lng)
+
+    mapService.reverseCodeAddress(lat, lng)
+        .then(results => {
+            if (gInfoWindow) {
+                gInfoWindow.close()
+            }
+            gInfoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+
+            })
+            gInfoWindow.setContent(
+                setInfoContent(results.results[0].formatted_address)
+            )
+            gInfoWindow.open(mapService.getMap())
+
+            mapService.saveCurrLoc({ coords: { lat, lng }, address: results.results[0].formatted_address })
+
+            renderChosenLocAddress(mapService.getCurrLoc().address)
+        })
+}
+
+function closeInfoWindow() {
+    gInfoWindow.close()
+}
+function setInfoContent(address = 'address') {
+    return `
+        <div div class= "info-window" >
+            <h2>Your next stop is:</h2>
+            <p>${address}</p>
+            <input type="text" class="loc-name" placeholder="Name this place!"/>
+            <button onclick="onSaveLoc(event)">save</button>
+        </div >
+        `
+}
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
     });
 }
 
-function onAddMarker(pos) {
-    console.log('Adding a marker');
-    mapService.addMarker(pos);
+function onAddMarker(pos, name) {
+    mapService.addMarker(pos, name);
 }
 
 function onGetLocs() {
     locService.getLocs().then((locs) => {
-        console.log('Locations:', locs);
         document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2);
     });
 }
@@ -65,48 +113,68 @@ function onGetUserPos() {
 }
 
 function onPanTo(pos) {
-    console.log(`pos:`, pos);
-    console.log('Panning the Map');
-    // mapService.panTo(35.6895, 139.6917);
     mapService.panTo(pos.lat, pos.lng);
 }
 
-function renderLocationTable() {
+function onGoToLoc(lat, lng, name, address) {
+    mapService.panTo(lat, lng);
+
+    renderChosenLocAddress(address, name)
+}
+
+function renderMarkers() {
+    console.log('render locs')
     locService.getLocs()
         .then(locs => {
-            console.log(`locs:`, locs)
-            const strHTMLs = locs.map(({ name, createdAt }) => {
-                return `<div class="location-value flex row align-center justify-center">
-                            <h2 class="loc-name">${name}</h2>
-                            <h5 class="loc-name">${createdAt}</h5>
-                        </div>
+            locs.forEach(({ name, createdAt, lat, lng, id, address }) => {
+                const pos = { 'lat': lat, 'lng': lng }
+                onAddMarker(pos, name)
+            })
+        }
+        )
+}
+
+function renderLocationTable() {
+    console.log('render locs')
+    locService.getLocs()
+        .then(locs => {
+            const strHTMLs = locs.map(({ name, createdAt, lat, lng, id, address }) => {
+                const pos = { 'lat': lat, 'lng': lng }
+                return `
+                <div class="location-value flex row align-center justify-between">
+                    <div>
+                        <h2 class="loc-name">${name}</h2>
+                        <h5 class="loc-name">${createdAt}</h5>
+                    </div>
+                    <div class="btns">
+                        <button onclick="onGoToLoc(${lat} , ${lng}, '${name}', '${address}')">go</button>
+                        <button onclick="onDeleteLoc('${id}',' ${name}')">delete</button>
+                    </div>
+                
+                </div>
                         `
             })
-
-            console.log(`strHTMLs:`, strHTMLs)
             document.querySelector('.location-table').innerHTML = strHTMLs.join('')
         }
         )
 }
 
 function onCodeAddress(ev) {
-    debugger
     ev.preventDefault()
     mapService.codeAddress()
 }
 
 function onSaveLoc(ev) {
-    console.log('save loc')
-
-    const locName = document.querySelector('.loc-name').value
+    const locName = document.querySelector('input.loc-name').value
     const { lat, lng } = mapService.getCurrLoc().coords
     const address = mapService.getCurrLoc().address
 
-    const loc = locService.createLoc(locName, address, lat, lng,)
-    console.log(`loc:`, loc)
+    locService.createLoc(locName, address, lat, lng,)
 
     renderLocationTable()
-    mapService.closeInfoWindow()
+    mapService.addMarker({ lat: lat, lng: lng })
+
+    closeInfoWindow()
 }
 
 function onMyLoc() {
@@ -118,10 +186,11 @@ function onMyLoc() {
 function onCopyLoc() {
     getPosition()
         .then((pos) => {
-            var locationUrl =
-                window.location.href +
-                `?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`
-            console.log(locationUrl);
+            return window.location.href + `?lat=${pos.coords.latitude}&lng=${pos.coords.longitude}`
+        })
+        .then(url => {
+            navigator.clipboard.writeText(url)
+            alert(url)
         })
 }
 
@@ -135,3 +204,31 @@ function getQueryParams() {
     return { lat, lng }
 }
 
+function onDeleteLoc(id) {
+    locService.deleteLoc(id)
+    renderLocationTable()
+    renderMarkers()
+}
+
+function renderChosenLocAddress(address) {
+
+    document.querySelector('.chosen-loc').innerText = `${address}`
+
+}
+
+function onGetWaether(lat, lng) {
+    weatherService.getWeather(lat, lng)
+        .then(res => {
+            console.log(res)
+            getElement('.weather-location').innerText = res.data.name
+            getElement('.temp').innerText = res.data.main.temp.toFixed(0)
+            getElement('.wind').innerText = `wind speed: ${res.data.wind.speed}`
+            getElement('.sky').innerText = `sky: ${res.data.weather[0].main}`
+        })
+        .catch(() => console.log('Weather API failure'))
+}
+
+function getElement(selector) {
+    return document.querySelector(selector)
+
+}
