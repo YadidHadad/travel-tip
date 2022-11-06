@@ -45,6 +45,7 @@ h1 {
 header {
     padding: 1rem;
     /* height: 200px; */
+    border-bottom: 1px solid var(--darkGreen);
 }
 
 header>button {
@@ -146,6 +147,11 @@ input {
 
 /* ## ELEMENTS ## */
 
+.logo {
+    font-size: 5rem;
+    padding-inline: 1rem;
+}
+
 .weather-container {
     background-color: white;
     height: 100%;
@@ -156,8 +162,12 @@ input {
     border-radius: 5px;
 
     border: 1px solid var(--lightGreen);
+    color: var(--darkGreen);
+    background-color: var(--light);
 
 }
+
+
 
 .location-table {
     height: 100%;
