@@ -46,6 +46,7 @@ header {
     padding: 1rem;
     /* height: 200px; */
     border-bottom: 1px solid var(--darkGreen);
+    padding-inline-end: 1rem;
 }
 
 header>button {
@@ -234,6 +235,7 @@ input {
         flex-direction: column;
         flex-wrap: wrap;
         padding: 0;
+        padding-block-end: 1rem;
     }
 
     .weather-container {
