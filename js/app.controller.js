@@ -21,23 +21,21 @@ window.addEventListener = addEventListener
 var gUserCurrPos;
 var gInfoWindow
 
-
-// let gInfoWindow
 function onInit() {
     onGetUserPos()
         .then(() => {
             mapService
                 .initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng)
                 .then(map => { addEventListener(map) })
-                .then(() => { onAddMarker(locService.loadCurrPos(), 'You are Here!') })
+                .then(() => { onGetWaether(locService.loadCurrPos().lat, locService.loadCurrPos().lng) })
+                .then(() => { onAddMarker(locService.loadCurrPos(), 'You are Here!', 'home') })
                 .then(() => renderLocationTable())
                 .then(() => renderMarkers())
                 .catch(() => console.error('Error: cannot init map'))
         })
         .catch(() => console.error('Error: cannot get user position'))
-
-
 }
+
 function addEventListener(map) {
     map.addListener('click', onAddLoc);
 }
@@ -70,6 +68,7 @@ function onAddLoc(mapsMouseEvent) {
 function closeInfoWindow() {
     gInfoWindow.close()
 }
+
 function setInfoContent(address = 'address') {
     return `
         <div div class= "info-window" >
@@ -87,8 +86,8 @@ function getPosition() {
     });
 }
 
-function onAddMarker(pos, name) {
-    mapService.addMarker(pos, name);
+function onAddMarker(pos, name, icon) {
+    mapService.addMarker(pos, name, icon);
 }
 
 function onGetLocs() {
@@ -141,12 +140,14 @@ function renderLocationTable() {
             const strHTMLs = locs.map(({ name, createdAt, lat, lng, id, address }) => {
                 const pos = { 'lat': lat, 'lng': lng }
                 return `
-                <div class="location-value flex row align-center justify-between">
+                <div class="location-value flex column align-center justify-between">
+                    <div class="">
                     <div>
-                        <h2 class="loc-name">${name}</h2>
-                        <h5 class="loc-name">${createdAt}</h5>
+                    <h2 class="loc-name">${name}</h2>
+                    <h5 class="loc-name">${createdAt}</h5>
                     </div>
-                    <div class="btns">
+                    </div>
+                    <div class="loc-btns flex align-center justify-center">
                         <button onclick="onGoToLoc(${lat} , ${lng}, '${name}', '${address}')">go</button>
                         <button onclick="onDeleteLoc('${id}',' ${name}')">delete</button>
                     </div>
@@ -181,6 +182,7 @@ function onMyLoc() {
     const currPos = locService.loadCurrPos()
 
     mapService.panTo(currPos.lat, currPos.lng);
+    onGetWaether(currPos.lat, currPos.lng)
 }
 
 function onCopyLoc() {

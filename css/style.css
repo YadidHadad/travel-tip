@@ -1,5 +1,10 @@
-* {
-    box-sizing: border-box;
+:root {
+    --light: #EEEEEE;
+
+    --lightGreen: #829460;
+    --darkGreen: #90A17D;
+
+    --pink: #FFE1E1;
 }
 
 @font-face {
@@ -7,23 +12,20 @@
     src: url(/fonts/Montserrat/Montserrat-Regular.ttf);
 }
 
-@font-face {
-    font-family: MontserratThin;
-    src: url(/fonts/Montserrat/Montserrat-Regular.ttf);
+* {
+    box-sizing: border-box;
+    margin: 0;
 }
 
-@font-face {
-    font-family: MontserratSemiBold;
-    src: url(/fonts/MontserratSemiBold/Montserrat-SemiBold.ttf);
-}
+/* BASICS */
 
 body {
     /* font-family: Helvetica, sans-serif; */
-    background-color: rgb(231, 111, 55);
-    padding: 20px;
-    margin: auto;
+    background-color: var(--light);
+    /* padding: 20px; */
+    /* margin: auto; */
     font-family: Montserrat, sans-serif;
-    height: fit-content;
+    /* height: fit-content; */
 }
 
 h1,
@@ -33,8 +35,72 @@ h4,
 h5,
 h5 {
     margin: 0;
-    padding-inline: 1rem;
+    text-align: center;
 }
+
+h1 {
+    font-size: 4rem;
+}
+
+header {
+    padding: 1rem;
+    /* height: 200px; */
+}
+
+header>button {
+    width: 200px
+}
+
+.nav-buttons {
+    width: 200px;
+}
+
+.main {
+    height: calc(95vh - 200px);
+    padding: 1rem;
+}
+
+button {
+    border: none;
+    background-color: var(--darkGreen);
+    padding: 0;
+    color: var(--light);
+    height: 100%;
+
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid var(--lightGreen);
+}
+
+button:nth-child(2) {
+    margin-block: 0.5rem;
+
+}
+
+button img {
+    width: 20px;
+}
+
+form button {
+    border-radius: 0 5px 5px 0;
+
+
+}
+
+input {
+    display: flex;
+    /* align-self: flex-end; */
+    text-align: center;
+    height: 100%;
+    color: black;
+    background-color: lightgrey;
+    /* margin-block: 0.5rem; */
+    width: 100%;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid var(--darkGreen);
+}
+
 
 /* helpers */
 .flex {
@@ -47,6 +113,14 @@ h5 {
 
 .justify-between {
     justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.align-start {
+    align-items: flex-start;
 }
 
 .align-center {
@@ -72,111 +146,53 @@ h5 {
 
 /* ## ELEMENTS ## */
 
-/* header */
-header {
-    width: 90%;
-    height: 250px;
-}
-
-.header-a {
-    justify-items: center;
-    align-items: center;
-}
-
-h1 {
-    font-size: 2.4rem;
-    font-family: MontserratSemiBold;
-}
-
-.header-a div {
-    display: flex;
-    justify-items: center;
-
-}
-
-input {
-    display: flex;
-    /* align-self: flex-end; */
-    text-align: center;
-    height: 2.2rem;
-    color: black;
-    background-color: lightgrey;
-    margin-block-end: 0.5rem;
-}
-
-::-webkit-input-placeholder {
-    color: black;
-    text-align: center;
-    font-size: 0.9rem;
-    font-family: MontserratThin;
-}
-
-.btn {
-    background: darkgray;
-    color: white;
-    font-size: 1rem;
-    font-family: MontserratThin;
-}
-
-.btn-submit {
-    height: 2.2rem;
-    width: 5em;
-}
-
-.btn-user-pos {
-    width: 8em;
-    margin-inline-start: 5px;
-}
-
-.header-b {
-    align-items: baseline;
-}
-
-h2 {
-    font-family: MontserratSemiBold;
-}
-
-h2 span {
-    font-family: Montserrat, sans-serif;
-}
-
-.btn-copy-locs {
-    height: 3em;
-    align-items: baseline;
-}
-
-/* main */
-main {
-    width: 90%;
-    height: 400px;
-    text-align: center;
-}
-
-.weather-locations-section {
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 45%;
-}
-
 .weather-container {
-    height: 210px;
-    margin-block-end: 10px;
     background-color: white;
+    height: 100%;
+    flex-grow: 1;
+    margin-inline: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px;
+
+    border: 1px solid var(--lightGreen);
+
 }
 
-.location-table>div {
-    background-color: rgb(38, 111, 213);
-    margin-block-end: 1rem;
+.location-table {
+    height: 100%;
 }
 
-.location-table div {
-    /* height: 180px; */
-    padding: 5px;
+.location-value {
+    margin-block-end: 0.5rem;
+    background-color: var(--pink);
+    width: 200px;
+    padding-block: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--lightGreen);
+
 }
 
-.map-container {
-    width: 55%;
-    margin-inline-start: 20px;
+.location-value img:hover {
+    rotate: -10deg;
+}
+
+.loc-btns button {
+    padding: 0;
+    margin-inline: 0.5rem;
+    padding-inline: 0.5rem;
+}
+
+.loc-name {
+    text-transform: capitalize;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    margin-inline-end: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--lightGreen);
 }
 
 /* INFO-WINDOW */
@@ -198,4 +214,51 @@ main {
     padding-right: 1rem;
     padding-bottom: 1rem;
 
+}
+
+/* MOBILE ONLY */
+
+@media (max-width: 600px) {
+
+    header {
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 0;
+    }
+
+    .weather-container {
+        margin-block: 1rem;
+    }
+
+
+    .nav-buttons {
+        padding-inline: 0.5rem;
+        width: 100%;
+    }
+
+    form input {
+        height: 100%;
+    }
+
+    .main {
+        display: inline;
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+
+    #map {
+        margin: 0.5rem;
+        width: calc(100% - 1rem);
+        height: 500px;
+    }
+
+    .location-table {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+
+    .location-value {
+        flex-grow: 1;
+    }
 }

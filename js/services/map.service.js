@@ -42,11 +42,19 @@ function getCurrLoc() {
     return gCurrLoc
 }
 
-function addMarker(pos, name) {
+function addMarker(pos, name, icon) {
+
+    const url = icon === 'home' ? './img/location-pin.png' : './img/flag.png'
+
     var marker = new google.maps.Marker({
         position: pos,
         map: gMap,
         title: name,
+        icon: {
+            // size: new google.maps.Size(40, 40),
+            scaledSize: new google.maps.Size(40, 40),
+            url: url
+        }
     });
 
     gMarkers.push(marker)
