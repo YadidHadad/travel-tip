@@ -24,14 +24,13 @@ window.addEventListener = addEventListener
 
 var gUserCurrPos;
 var gInfoWindow;
-const MAPS_KEY = process.env.MAPS_KEY;
 
 
 function onInit() {
     onGetUserPos()
         .then(() => {
             mapService
-                .initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng, MAPS_KEY)
+                .initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng)
                 .then(map => { addEventListener(map) })
                 .then(() => { onGetWaether(locService.loadCurrPos().lat, locService.loadCurrPos().lng) })
                 .then(() => { onAddMarker(locService.loadCurrPos(), 'You are Here!', 'home') })
