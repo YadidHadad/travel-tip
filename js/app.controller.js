@@ -1,4 +1,4 @@
-import { locService } from './services/loc.service.js';
+nvimport { locService } from './services/loc.service.js';
 import { mapService } from './services/map.service.js';
 import { weatherService } from './services/weather.service.js';
 
@@ -20,7 +20,7 @@ window.addEventListener = addEventListener
 
 var gUserCurrPos;
 var gInfoWindow;
-const MAPS_KEY = secrets.MAPS_KEY;
+const MAPS_KEY = env.MAPS_KEY;
 
 console.log(MAPS_KEY)
 
