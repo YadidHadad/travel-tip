@@ -18,11 +18,10 @@ window.onDeleteLoc = onDeleteLoc
 window.renderChosenLocAddress = renderChosenLocAddress
 window.addEventListener = addEventListener
 
-console.log(MAPS_KEY)
-console.log(WEATHER_KEY)
+
 var gUserCurrPos;
 var gInfoWindow;
-const MAPS_KEY = MAPS_KEY;
+const MAPS_KEY = process.env.MAPS_KEY;
 
 
 function onInit() {
