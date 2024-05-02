@@ -21,9 +21,10 @@ var gMarkers = []
 
 
 
-function initMap(lat = 32.0749831, lng = 34.9120554) {
+function initMap(lat = 32.0749831, lng = 34.9120554, MAPS_KEY) {
     console.log('InitMap')
-    return _connectGoogleApi()
+    console.log(MAPS_KEY)
+    return _connectGoogleApi(MAPS_KEY)
         .then(() => {
             console.log('google available')
             gGeocoder = new google.maps.Geocoder()
@@ -80,7 +81,7 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
-function _connectGoogleApi() {
+function _connectGoogleApi(MAPS_KEY) {
     if (window.google) return Promise.resolve();
 
 
@@ -88,7 +89,7 @@ function _connectGoogleApi() {
 
     var elGoogleApi = document.createElement('script');
 
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&language=en`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&language=en`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
