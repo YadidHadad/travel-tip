@@ -79,7 +79,7 @@ function panTo(lat, lng) {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve();
 
-    const API_KEY = 'AIzaSyB5ZJRjf-HF2mtuA1LUnWH_xxDwfZBQpxo';
+    const API_KEY = 'AIzaSyCCcqfhkjXoblBwguubBGCBX7-DcW5D43M';
 
     var elGoogleApi = document.createElement('script');
 
