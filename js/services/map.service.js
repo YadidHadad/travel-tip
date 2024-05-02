@@ -17,6 +17,7 @@ var gGeocoder
 var gCurrLoc
 var gMarkers = []
 
+const MAPS_KEY = 'API_KEY_PLACEHOLDER';
 
 
 
