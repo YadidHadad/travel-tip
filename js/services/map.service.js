@@ -18,7 +18,7 @@ var gCurrLoc
 var gMarkers = []
 
 
-const API_KEY = ${{secrets.MAPS_KEY}};
+const API_KEY = '${secrets.MAPS_KEY}';
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
