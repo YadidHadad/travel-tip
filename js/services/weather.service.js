@@ -1,9 +1,9 @@
-export const weatherService = {
+vexport const weatherService = {
     getWeather,
 
 }
 
-const WEATHER_API = secrets.WEATHER_KEY
+const WEATHER_API = env.WEATHER_KEY
 console.log(WEATHER_API)
 // const WEATHER_API = 'cca6c2803bb413e19be59f3727b3bf01'
 
