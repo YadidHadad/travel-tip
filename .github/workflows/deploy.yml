@@ -15,7 +15,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          MAPS_KEY: ${{ secrets.MAPS_KEY }}
-          WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
+          # MAPS_KEY: ${{ secrets.MAPS_KEY }}
+          github_token: ${{ secrets.WEATHER_KEY }}
           publish_branch: gh-pages
           publish_dir: ./
