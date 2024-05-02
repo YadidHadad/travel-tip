@@ -6,11 +6,13 @@ permissions: read-all
 on: page_build
 
 jobs:
-  my-job:
-    name: My Job
+  deployment:
     runs-on: ubuntu-latest
+    environment: 
+      name: production
+      url: https://github.com
     steps:
-      - name: Print a greeting
+      - name: deploy
         env:
           MAPS_KEY: ${{ secrets.MAPS_KEY }}
           WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
