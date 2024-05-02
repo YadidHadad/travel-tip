@@ -8,19 +8,17 @@ on: page_build
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    environment: 
-      name: production
-      url: https://github.com
+
     steps:
       - name: deploy
         env:
           MAPS_KEY: ${{ secrets.MAPS_KEY }}
           WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
         run: |
-          echo $MAPS_KEY $WEATHER_KEY 
+          echo run
           npm install dotenv
-          import 'dotenv/config'
-          console.log(process.env)
           process.env.MAPS_KEY = MAPS_KEY
           process.env.WEATHER_KEY = WEATHER_KEY
+          echo $MAPS_KEY $WEATHER_KEY 
+          echo done
           
