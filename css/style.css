@@ -1,0 +1,276 @@
+:root {
+    --light: #EEEEEE;
+
+    --lightGreen: #829460;
+    --darkGreen: #90A17D;
+
+    --pink: #FFE1E1;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url(/fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* BASICS */
+
+body {
+    /* font-family: Helvetica, sans-serif; */
+    background-color: var(--light);
+    /* padding: 20px; */
+    /* margin: auto; */
+    font-family: Montserrat, sans-serif;
+    /* height: fit-content; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h5 {
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+header {
+    padding: 1rem;
+    /* height: 200px; */
+    border-bottom: 1px solid var(--darkGreen);
+    padding-inline-end: 1rem;
+}
+
+header>button {
+    width: 200px
+}
+
+.nav-buttons {
+    width: 200px;
+}
+
+.main {
+    height: calc(95vh - 200px);
+    padding: 1rem;
+}
+
+button {
+    border: none;
+    background-color: var(--darkGreen);
+    padding: 0;
+    color: var(--light);
+    height: 100%;
+
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid var(--lightGreen);
+}
+
+button:nth-child(2) {
+    margin-block: 0.5rem;
+
+}
+
+button img {
+    width: 20px;
+}
+
+form button {
+    border-radius: 0 5px 5px 0;
+
+
+}
+
+input {
+    display: flex;
+    /* align-self: flex-end; */
+    text-align: center;
+    height: 100%;
+    color: black;
+    background-color: lightgrey;
+    /* margin-block: 0.5rem; */
+    width: 100%;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid var(--darkGreen);
+}
+
+
+/* helpers */
+.flex {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+
+/* ## ELEMENTS ## */
+
+.logo {
+    font-size: 5rem;
+    padding-inline: 1rem;
+}
+
+.weather-container {
+    background-color: white;
+    height: 100%;
+    flex-grow: 1;
+    margin-inline: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px;
+
+    border: 1px solid var(--lightGreen);
+    color: var(--darkGreen);
+    background-color: var(--light);
+
+}
+
+
+
+.location-table {
+    height: 100%;
+}
+
+.location-value {
+    margin-block-end: 0.5rem;
+    background-color: var(--pink);
+    width: 200px;
+    padding-block: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--lightGreen);
+
+}
+
+.location-value img:hover {
+    rotate: -10deg;
+}
+
+.loc-btns button {
+    padding: 0;
+    margin-inline: 0.5rem;
+    padding-inline: 0.5rem;
+}
+
+.loc-name {
+    text-transform: capitalize;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    margin-inline-end: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--lightGreen);
+}
+
+/* INFO-WINDOW */
+
+.info-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 250px;
+}
+
+.gm-style,
+.gm-style-iw,
+.gm-style-iw-c,
+.gm-style-iw-d {
+    overflow: hidden !important;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+
+}
+
+/* MOBILE ONLY */
+
+@media (max-width: 600px) {
+
+    header {
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 0;
+        padding-block-end: 1rem;
+    }
+
+    .weather-container {
+        margin-block: 1rem;
+    }
+
+
+    .nav-buttons {
+        padding-inline: 0.5rem;
+        width: 100%;
+    }
+
+    form input {
+        height: 100%;
+    }
+
+    .main {
+        display: inline;
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+
+    #map {
+        margin: 0.5rem;
+        width: calc(100% - 1rem);
+        height: 500px;
+    }
+
+    .location-table {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+
+    .location-value {
+        flex-grow: 1;
+    }
+}

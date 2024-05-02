@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>TravelTip</title>
+</head>
+
+<body>
+    <header class="flex justify-between">
+        <section class="flex column justify-between">
+            <h1 class="logo">TravelTip</h1>
+            <h4 class="chosen-loc">Where do you want to travel?</h4>
+        </section>
+        <section class="weather-container">
+            <div class="flex row justify-around" id="weather">
+                <div class="flex column justify-around">
+                    <h3 class="weather-location">City</h3>
+                    <h1>
+                        <span class="temp">22</span> <span>&#176;C</span>
+                    </h1>
+                </div>
+                <div class="flex column justify-around">
+                    <h6 class="wind">Windy</h6>
+                    <h6 class="sky">Clear</h6>
+                </div>
+            </div>
+        </section>
+        <section class="flex nowrap column nav-buttons">
+            <form action="" onsubmit="onCodeAddress(event)" class="flex row align-center">
+                <input type="search" id="address" placeholder="Enter Location"></input>
+                <button class="btn-submit btn">GO</button>
+            </form>
+            <button onclick="onMyLoc()" class="btn-user-pos btn">My Location</button>
+            <button onclick="onCopyLoc()" class="btn-copy-locs btn">Copy Location</button>
+        </section>
+    </header>
+
+    <main class=" main flex row align-center justify-between">
+
+        <section id="map"></section>
+
+        <section class="location-table">Location table</section>
+    </main>
+<!--     <script src="./environment.js"></script> -->
+    <script src="lib/axios.js"></script>
+    <script type="module" src="js/app.controller.js"></script>
+    
+</body>
+
+</html>
