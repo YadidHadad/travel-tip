@@ -20,15 +20,15 @@ window.addEventListener = addEventListener
 
 var gUserCurrPos;
 var gInfoWindow;
-const API_KEY = '${secrets.MAPS_KEY}';
+const MAPS_KEY = secrets.MAPS_KEY;
 
-console.log(API_KEY)
+console.log(MAPS_KEY)
 
 function onInit() {
     onGetUserPos()
         .then(() => {
             mapService
-                .initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng)
+                .initMap(locService.loadCurrPos().lat, locService.loadCurrPos().lng, MAPS_KEY)
                 .then(map => { addEventListener(map) })
                 .then(() => { onGetWaether(locService.loadCurrPos().lat, locService.loadCurrPos().lng) })
                 .then(() => { onAddMarker(locService.loadCurrPos(), 'You are Here!', 'home') })
