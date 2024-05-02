@@ -19,7 +19,8 @@ jobs:
         run: |
           echo $MAPS_KEY $WEATHER_KEY 
           npm install dotenv
-          require('dotenv').config();
+          import 'dotenv/config'
+          console.log(process.env)
           process.env.MAPS_KEY = MAPS_KEY
           process.env.WEATHER_KEY = WEATHER_KEY
           
