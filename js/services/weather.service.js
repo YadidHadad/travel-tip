@@ -2,9 +2,9 @@ export const weatherService = {
     getWeather,
 
 }
-console.log(WEATHER_API)
+console.log(env.WEATHER_API)
 
-const WEATHER_API = WEATHER_KEY
+const WEATHER_API = env.WEATHER_KEY
 // const WEATHER_API = 'cca6c2803bb413e19be59f3727b3bf01'
 
 function getWeather(lat = 34.0, lng = 35.0) {
