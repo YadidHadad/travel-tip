@@ -19,7 +19,8 @@ window.renderChosenLocAddress = renderChosenLocAddress
 window.addEventListener = addEventListener
 
 var gUserCurrPos;
-var gInfoWindow
+var gInfoWindow;
+const API_KEY = '${secrets.MAPS_KEY}';
 
 function onInit() {
     onGetUserPos()
