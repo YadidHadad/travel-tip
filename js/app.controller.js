@@ -1,4 +1,4 @@
-import 'dotenv/config'
+require('dotenv').config()
 console.log(process.env)
 
 import { locService } from './services/loc.service.js';
