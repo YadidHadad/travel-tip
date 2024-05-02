@@ -1,3 +1,6 @@
+import 'dotenv/config'
+console.log(process.env)
+
 import { locService } from './services/loc.service.js';
 import { mapService } from './services/map.service.js';
 import { weatherService } from './services/weather.service.js';
