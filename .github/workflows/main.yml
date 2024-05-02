@@ -11,14 +11,12 @@ jobs:
 
     steps:
       - name: deploy
-        env:
-          MAPS_KEY: ${{ secrets.MAPS_KEY }}
-          WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
         run: |
           echo run
           npm install dotenv
-          process.env.MAPS_KEY = MAPS_KEY
-          process.env.WEATHER_KEY = WEATHER_KEY
           echo $MAPS_KEY $WEATHER_KEY 
           echo done
+        env:
+          MAPS_KEY: ${{ secrets.MAPS_KEY }}
+          WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
           
