@@ -17,6 +17,10 @@ var gGeocoder
 var gCurrLoc
 var gMarkers = []
 
+
+const API_KEY = ${{secrets.MAPS_KEY}};
+
+
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
     return _connectGoogleApi()
@@ -79,7 +83,6 @@ function panTo(lat, lng) {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve();
 
-    const API_KEY = secrets.API_KEY;
 
     console.log(secrets.API_KEY)
 
