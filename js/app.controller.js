@@ -22,6 +22,8 @@ var gUserCurrPos;
 var gInfoWindow;
 const API_KEY = '${secrets.MAPS_KEY}';
 
+console.log(API_KEY)
+
 function onInit() {
     onGetUserPos()
         .then(() => {
