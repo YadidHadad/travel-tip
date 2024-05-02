@@ -2,7 +2,6 @@ export const weatherService = {
     getWeather,
 
 }
-console.log(process.env.WEATHER_API)
 
 const WEATHER_API = 'API_KEY_PLACEHOLDER';
 // const WEATHER_API = process.env.WEATHER_KEY
