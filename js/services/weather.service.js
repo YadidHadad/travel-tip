@@ -1,4 +1,4 @@
-vexport const weatherService = {
+export const weatherService = {
     getWeather,
 
 }
