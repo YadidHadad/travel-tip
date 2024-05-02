@@ -1,0 +1,14 @@
+# Deployment job
+deploy:
+  environment:
+    name: github-pages
+    url: https://github.com
+  runs-on: ubuntu-latest
+  needs: build
+  env:  
+    MAPS_KEY: ${{ secrets.MAPS_KEY }}
+
+  steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
