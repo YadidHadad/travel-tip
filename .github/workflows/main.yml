@@ -18,3 +18,8 @@ jobs:
           WEATHER_KEY: ${{ secrets.WEATHER_KEY }}
         run: |
           echo $MAPS_KEY $WEATHER_KEY 
+          npm install dotenv
+          require('dotenv').config();
+          process.env.MAPS_KEY = MAPS_KEY
+          process.env.WEATHER_KEY = WEATHER_KEY
+          
