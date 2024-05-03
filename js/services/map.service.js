@@ -17,14 +17,13 @@ var gGeocoder
 var gCurrLoc
 var gMarkers = []
 
-const MAPS_KEY = '373f081efcf66649350fee9c49fd5271';
 
 
 
 
-function initMap(lat = 32.0749831, lng = 34.9120554, MAPS_KEY) {
+function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
-    return _connectGoogleApi(MAPS_KEY)
+    return _connectGoogleApi()
         .then(() => {
             console.log('google available')
             gGeocoder = new google.maps.Geocoder()
@@ -82,9 +81,10 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
-function _connectGoogleApi(MAPS_KEY) {
+function _connectGoogleApi() {
     if (window.google) return Promise.resolve();
 
+    const MAPS_KEY = '373f081efcf66649350fee9c49fd5271';
 
     console.log(secrets.API_KEY)
 
