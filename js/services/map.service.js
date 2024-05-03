@@ -83,7 +83,7 @@ function panTo(lat, lng) {
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve();
 
-    const MAPS_KEY = '373f081efcf66649350fee9c49fd5271';
+    const MAPS_KEY = 'AIzaSyCCcqfhkjXoblBwguubBGCBX7-DcW5D43M';
 
     var elGoogleApi = document.createElement('script');
 
