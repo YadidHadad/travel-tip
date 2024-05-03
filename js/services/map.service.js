@@ -22,7 +22,7 @@ const MAPS_KEY = '373f081efcf66649350fee9c49fd5271';
 
 
 
-function initMap(lat = 32.0749831, lng = 34.9120554) {
+function initMap(lat = 32.0749831, lng = 34.9120554, MAPS_KEY) {
     console.log('InitMap')
     return _connectGoogleApi(MAPS_KEY)
         .then(() => {
