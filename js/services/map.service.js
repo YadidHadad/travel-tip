@@ -36,7 +36,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
             return gMap
         })
-        .catch(console.log('Error: initMap'))
 }
 
 function getMap() {
@@ -86,11 +85,9 @@ function _connectGoogleApi() {
 
     const MAPS_KEY = '373f081efcf66649350fee9c49fd5271';
 
-    console.log(secrets.API_KEY)
-
     var elGoogleApi = document.createElement('script');
 
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&language=en`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&language=en`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
@@ -99,9 +96,6 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load');
     });
 }
-
-
-
 
 function codeAddress() {
     var address = document.getElementById('address').value;
