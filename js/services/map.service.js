@@ -36,7 +36,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554, MAPS_KEY) {
             console.log('Map!', gMap);
 
             return gMap
-        }
+        })
         .catch(console.log('Error: initMap'))
 }
 
